@@ -1,5 +1,8 @@
 // script.js
 
+let currentIndex = 0; // ตำแหน่งของรูปที่แสดงอยู่
+let currentImages = []; // รายการรูปของสินค้าที่เลือก
+
 // ฟังก์ชันแสดงสินค้าจากหมวดหมู่
 function displayProducts(category) {
     const productContainer = document.getElementById(`${category}-products`);
@@ -11,14 +14,13 @@ function displayProducts(category) {
         const productElement = document.createElement('div');
         productElement.classList.add('product');
         productElement.innerHTML = `
-            <img src="${product.image}" alt="${product.alt}" onclick="openModal(this)">
+            <img src="${product.images[0]}" alt="${product.alt}" onclick="openModal('${category}', '${product.name}')">
             <h4>${product.name}</h4>
             <p class="price">${product.price} บาท</p>
         `;
         productContainer.appendChild(productElement);
     });
 }
-
 // ฟังก์ชันเปิดแท็บ
 function openTab(tabName) {
     var contents = document.querySelectorAll('.tab-content');
@@ -40,25 +42,50 @@ function openTab(tabName) {
     var activeButton = document.querySelector('button[onclick="openTab(\'' + tabName + '\')"]');
     activeButton.classList.add('active'); // เพิ่มคลาส active ให้กับปุ่มที่เลือก
 }
+// ฟังก์ชันเปิด Modal และโหลดรูปของสินค้านั้น ๆ
+function openModal(category, productName) {
+    const product = products[category].find(p => p.name === productName); // ค้นหาสินค้าที่ถูกเลือก
+    if (!product) return; // ป้องกันข้อผิดพลาดหากหาไม่เจอ
+    
+    currentImages = product.images; // โหลดรายการรูปของสินค้านั้น
+    currentIndex = 0; // รีเซ็ต index
 
-// ฟังก์ชันเปิด Modal
-function openModal(imgElement) {
-    var modal = document.getElementById("myModal");
-    var modalImg = document.getElementById("modalImg");
-    var captionText = document.getElementById("caption");
+    updateModalImage(); // แสดงรูปแรก
+    document.getElementById("myModal").style.display = "block";
+}
 
-    modal.style.display = "block";
-    modalImg.src = imgElement.src;
-    captionText.innerHTML = imgElement.alt;
+// ฟังก์ชันอัปเดตรูปใน Modal
+function updateModalImage() {
+    let modalImg = document.getElementById("modalImg");
+    let captionText = document.getElementById("caption");
+    
+    if (currentImages.length > 0) {
+        modalImg.src = currentImages[currentIndex];
+        captionText.innerHTML = `รูปที่ ${currentIndex + 1} / ${currentImages.length}`;
+    }
+}
+
+// ฟังก์ชันเลื่อนรูปภาพ
+function nextImage() {
+    if (currentIndex < currentImages.length - 1) {
+        currentIndex++;
+        updateModalImage();
+    }
+}
+
+function prevImage() {
+    if (currentIndex > 0) {
+        currentIndex--;
+        updateModalImage();
+    }
 }
 
 // ฟังก์ชันปิด Modal
 function closeModal() {
-    var modal = document.getElementById("myModal");
-    modal.style.display = "none";
+    document.getElementById("myModal").style.display = "none";
 }
 
-// เรียกใช้ฟังก์ชันเมื่อโหลดหน้า
+// โหลดสินค้าหมวดหมู่แรกเมื่อเปิดเว็บ
 window.onload = () => {
-    displayProducts('mountain-bikes'); // แสดงสินค้าจากหมวดหมู่เริ่มต้น
+    displayProducts('mountain-bikes'); // โหลดสินค้าหมวดแรก
 };

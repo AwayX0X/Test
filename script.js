@@ -21,26 +21,20 @@ function displayProducts(category) {
         productContainer.appendChild(productElement);
     });
 }
-// ฟังก์ชันเปิดแท็บ
-function openTab(tabName) {
-    var contents = document.querySelectorAll('.tab-content');
-    contents.forEach(function(content) {
-        content.classList.remove('active');
+// ฟังก์ชันเปลี่ยนหมวดหมู่เมื่อเลือกจาก Select
+function changeCategory() {
+    let selectedCategory = document.getElementById("categorySelect").value;
+    
+    // ซ่อนทุกหมวดหมู่
+    document.querySelectorAll(".tab-content").forEach(tab => {
+        tab.classList.remove("active");
     });
 
-    var activeTab = document.getElementById(tabName);
-    activeTab.classList.add('active');
+    // แสดงหมวดหมู่ที่เลือก
+    document.getElementById(selectedCategory).classList.add("active");
 
-    // แสดงสินค้าของหมวดหมู่ที่เลือก
-    displayProducts(tabName);
-
-    // จัดการแท็บที่ถูกเลือก
-    var buttons = document.querySelectorAll('.tab-button');
-    buttons.forEach(function(button) {
-        button.classList.remove('active'); // ลบคลาส active จากทุกปุ่ม
-    });
-    var activeButton = document.querySelector('button[onclick="openTab(\'' + tabName + '\')"]');
-    activeButton.classList.add('active'); // เพิ่มคลาส active ให้กับปุ่มที่เลือก
+    // โหลดสินค้าตามหมวดหมู่ที่เลือก
+    displayProducts(selectedCategory);
 }
 // ฟังก์ชันเปิด Modal และโหลดรูปของสินค้านั้น ๆ
 function openModal(category, productName) {

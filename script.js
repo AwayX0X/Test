@@ -85,7 +85,22 @@ function closeModal() {
     document.getElementById("myModal").style.display = "none";
 }
 
-// โหลดสินค้าหมวดหมู่แรกเมื่อเปิดเว็บ
+// ฟังก์ชันแสดง Loading Screen
+function showLoadingScreen() {
+    document.getElementById("loading-screen").style.display = "flex";
+}
+
+// ฟังก์ชันซ่อน Loading Screen
+function hideLoadingScreen() {
+    document.getElementById("loading-screen").style.display = "none";
+}
+
+// โหลดสินค้าหมวดหมู่แรกหลังจากโหลดเสร็จ
 window.onload = () => {
-    displayProducts('mountain-bikes'); // โหลดสินค้าหมวดแรก
+    showLoadingScreen(); // แสดงหน้าจอโหลด
+
+    setTimeout(() => {
+        hideLoadingScreen(); // ซ่อนหน้าจอโหลด
+        displayProducts('mountain-bikes'); // โหลดสินค้าหมวดแรก
+    }, 1500); // ตั้งเวลาโหลด 1.5 วินาที
 };

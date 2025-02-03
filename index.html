@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ร้านจักรยาน</title>
     <link rel="stylesheet" href="style.css">
-    <script src="config.js"></script> <!-- เรียกใช้ไฟล์ config.js ที่เก็บข้อมูลสินค้า -->
+    <script src="config.js"></script> <!-- โหลดข้อมูลสินค้า -->
 </head>
 <body>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+    <div class="loader"></div>
+    <p>กำลังโหลดเว็บไซต์...</p>
+</div>
 
 <div class="container">
     <h1>ร้านจักรยานของเรา</h1>
 
-    <!-- หมวดหมู่สินค้าเป็นแท็บ -->
+    <!-- หมวดหมู่สินค้า -->
     <div class="tabs">
         <button class="tab-button active" onclick="openTab('mountain-bikes')">จักรยานเสือภูเขา</button>
         <button class="tab-button" onclick="openTab('road-bikes')">จักรยานเสือหมอบ</button>
@@ -21,21 +27,15 @@
 
     <!-- แสดงสินค้าภายในแท็บต่าง ๆ -->
     <div id="mountain-bikes" class="tab-content active">
-        <div class="products" id="mountain-bikes-products">
-            <!-- สินค้าจะแสดงที่นี่ -->
-        </div>
+        <div class="products" id="mountain-bikes-products"></div>
     </div>
 
     <div id="road-bikes" class="tab-content">
-        <div class="products" id="road-bikes-products">
-            <!-- สินค้าจะแสดงที่นี่ -->
-        </div>
+        <div class="products" id="road-bikes-products"></div>
     </div>
 
     <div id="electric-bikes" class="tab-content">
-        <div class="products" id="electric-bikes-products">
-            <!-- สินค้าจะแสดงที่นี่ -->
-        </div>
+        <div class="products" id="electric-bikes-products"></div>
     </div>
 
     <!-- ช่องทางการติดต่อ -->
@@ -52,15 +52,13 @@
 <!-- Modal สำหรับแสดงรูปขยาย -->
 <div id="myModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
-    <button id="prev" onclick="prevImage()">&#10094;</button> <!-- ปุ่มย้อนกลับ -->
+    <button id="prev" onclick="prevImage()">&#10094;</button>
     <img class="modal-content" id="modalImg">
-    <button id="next" onclick="nextImage()">&#10095;</button> <!-- ปุ่มถัดไป -->
+    <button id="next" onclick="nextImage()">&#10095;</button>
     <div id="caption"></div>
 </div>
 
-
-
-<!-- เรียกไฟล์ script.js -->
+<!-- โหลดไฟล์ JavaScript -->
 <script src="script.js"></script>
 
 </body>

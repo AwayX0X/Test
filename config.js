@@ -16,8 +16,9 @@ const products = {
             name: "จักรยานเสือภูเขา รุ่น Y", 
             price: 6000, 
             images: [
-                "https://via.placeholder.com/300?v=4",
-                "https://via.placeholder.com/300?v=5"
+                "https://cdn.discordapp.com/attachments/1334512680009994301/1335978934499672178/0547d6e0-3bc5-438b-8672-c33c465b548c_1.png?ex=67a222d7&is=67a0d157&hm=2944683723be0154be562199f5e886c94e02ac324333e902604663a49cd0c075&",
+                "https://cdn.discordapp.com/attachments/1334512680009994301/1335978934977953812/0547d6e0-3bc5-438b-8672-c33c465b548c_2.png?ex=67a222d7&is=67a0d157&hm=616b64f1b3ab444dcb176134dc3dfec3aace803e238b18a2de9d7ea2e8995d6a&",
+                "https://cdn.discordapp.com/attachments/1334512680009994301/1335978934499672178/0547d6e0-3bc5-438b-8672-c33c465b548c_1.png?ex=67a222d7&is=67a0d157&hm=2944683723be0154be562199f5e886c94e02ac324333e902604663a49cd0c075&"
             ], 
             alt: "จักรยานเสือภูเขา"
         }

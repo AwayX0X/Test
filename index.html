@@ -52,9 +52,13 @@
 <!-- Modal สำหรับแสดงรูปขยาย -->
 <div id="myModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
+    <button id="prev" onclick="prevImage()">&#10094;</button> <!-- ปุ่มย้อนกลับ -->
     <img class="modal-content" id="modalImg">
+    <button id="next" onclick="nextImage()">&#10095;</button> <!-- ปุ่มถัดไป -->
     <div id="caption"></div>
 </div>
+
+
 
 <!-- เรียกไฟล์ script.js -->
 <script src="script.js"></script>

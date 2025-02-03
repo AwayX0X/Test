@@ -260,12 +260,34 @@ h1 {
     cursor: pointer;
 }
 
-@media screen and (max-width: 600px) {
-  body {
-    font-size: 14px;
-  }
+/* เพิ่ม Media Query สำหรับการจัดเรียงแท็บในมือถือ */
+@media screen and (max-width: 768px) {
+    .tabs {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .container {
-    padding: 10px;
-  }
+    .tab-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    .tab-button {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+
+    .price {
+        font-size: 18px;
+    }
+
+    .product h4 {
+        font-size: 16px;
+    }
 }

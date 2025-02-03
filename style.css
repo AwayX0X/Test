@@ -273,21 +273,18 @@ h1 {
     }
 }
 
-@media screen and (max-width: 480px) {
-    h1 {
-        font-size: 2em;
+@media screen and (max-width: 768px) {
+    .tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: center;
     }
 
     .tab-button {
-        font-size: 16px;
-        padding: 10px 15px;
-    }
-
-    .price {
-        font-size: 18px;
-    }
-
-    .product h4 {
-        font-size: 16px;
+        flex: 1;
+        white-space: nowrap;
+        width: auto;
+        margin: 5px;
     }
 }

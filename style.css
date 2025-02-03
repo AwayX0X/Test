@@ -1,0 +1,204 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F0F4F8; /* สีพื้นหลังอ่อน */
+    color: #333333; /* ข้อความสีเข้มเพื่อให้อ่านง่าย */
+    padding: 20px;
+    line-height: 1.6;
+    background-image: url('https://cdn.discordapp.com/attachments/1334512680009994301/1335969441074118709/pngtree-trees-in-a-pink-scene-image_2676099.jpg?ex=67a219ff&is=67a0c87f&hm=3eb59a06de550365d13cce91755c0b33be464a2b0e3c4fbf03b42b51dfdb7871&'); /* คุณสามารถใช้ภาพพื้นหลังที่มีความเบา เช่น ลายเมฆ หรือภาพที่ไม่รก */
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c);
+    border-radius: 10px; /* ขอบโค้ง */
+	-webkit-box-shadow: inset 1px 7px 39px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 1px 7px 39px 0px rgba(0,0,0,0.75);
+	box-shadow: inset 1px 7px 39px 0px rgba(0,0,0,0.75);
+}
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #fdf5e6; /* สีพื้นหลังเป็นสีส้ม */
+    color: black; /* เปลี่ยนสีข้อความให้เป็นสีขาว */
+    padding: 15px; /* เพิ่มระยะห่างในตัวอักษร */
+    border-radius: 10px; /* ทำให้ขอบมุมโค้ง */
+	-webkit-box-shadow: inset 1px 7px 39px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 1px 7px 39px 0px rgba(0,0,0,0.75);
+	box-shadow: inset 1px 7px 39px 0px rgba(0,0,0,0.75);
+}
+
+
+.tabs {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background-color: #007BFF; /* สีพื้นหลังของปุ่มแท็บ */
+    color: white;
+    padding: 12px 24px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 30px; /* มุมกลม */
+    cursor: pointer;
+    font-size: 1.1rem; /* ขนาดฟอนต์ใหญ่ขึ้น */
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
+}
+
+/* เมื่อปุ่มแท็บถูกเลือก (active) */
+.tab-button.active {
+    background-color: #FF6347; /* สีส้มตัดกับฟ้าเมื่อเลือก */
+    color: #fff; /* สีตัวอักษรขาวเพื่อให้ดูตัดกัน */
+    transform: scale(1.1); /* ขยายขนาดเมื่อเลือก */
+}
+
+/* เพิ่มเอฟเฟกต์เมื่อวางเมาส์ (hover) */
+.tab-button:hover {
+    background-color: #0056b3; /* เปลี่ยนสีเมื่อวางเมาส์ */
+    transform: scale(1.05); /* ขยายขนาดเล็กน้อยเมื่อวางเมาส์ */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้ดูเด่นขึ้น */
+}
+
+
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.product {
+    background-color: #FFFFFF;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* เพิ่มเอฟเฟกต์เมื่อ hover */
+}
+
+.product:hover {
+    transform: scale(1.05); /* ขยายสินค้าเล็กน้อยเมื่อ hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.product img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease; /* เพิ่มเอฟเฟกต์เมื่อ hover */
+}
+
+.product img:hover {
+    transform: scale(1.1); /* ขยายรูปภาพเมื่อ hover */
+}
+
+.product h4 {
+    margin: 10px 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.product .price {
+    color: #28a745; /* สีเขียวสดเพื่อให้ราคาเด่นขึ้น */
+    font-size: 1.3rem; /* ขนาดฟอนต์ใหญ่ขึ้น */
+    font-weight: bold; /* ตัวอักษรหนา */
+    text-transform: uppercase;
+    letter-spacing: 1px; /* เพิ่มระยะห่างระหว่างตัวอักษร */
+}
+
+
+.contact {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.contact ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.contact li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.contact li strong {
+    color: #007BFF;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    border-radius: 8px;
+}
+
+#caption {
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    display: block;
+    width: auto;
+}
+
+.close {
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+}

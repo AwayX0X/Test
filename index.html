@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ร้านจักรยาน</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="config.js"></script> <!-- เรียกใช้ไฟล์ config.js ที่เก็บข้อมูลสินค้า -->
+</head>
+<body>
+
+<div class="container">
+    <h1>ร้านจักรยานของเรา</h1>
+
+    <!-- หมวดหมู่สินค้าเป็นแท็บ -->
+    <div class="tabs">
+        <button class="tab-button active" onclick="openTab('mountain-bikes')">จักรยานเสือภูเขา</button>
+        <button class="tab-button" onclick="openTab('road-bikes')">จักรยานเสือหมอบ</button>
+        <button class="tab-button" onclick="openTab('electric-bikes')">จักรยานไฟฟ้า</button>
+    </div>
+
+    <!-- แสดงสินค้าภายในแท็บต่าง ๆ -->
+    <div id="mountain-bikes" class="tab-content active">
+        <div class="products" id="mountain-bikes-products">
+            <!-- สินค้าจะแสดงที่นี่ -->
+        </div>
+    </div>
+
+    <div id="road-bikes" class="tab-content">
+        <div class="products" id="road-bikes-products">
+            <!-- สินค้าจะแสดงที่นี่ -->
+        </div>
+    </div>
+
+    <div id="electric-bikes" class="tab-content">
+        <div class="products" id="electric-bikes-products">
+            <!-- สินค้าจะแสดงที่นี่ -->
+        </div>
+    </div>
+
+    <!-- ช่องทางการติดต่อ -->
+    <div class="contact">
+        <h2>ช่องทางการติดต่อ</h2>
+        <ul>
+            <li><strong>โทรศัพท์:</strong> 012-345-6789</li>
+            <li><strong>อีเมล:</strong> example@email.com</li>
+            <li><strong>ที่อยู่:</strong> 123 ถนนจักรยาน, กรุงเทพฯ, ประเทศไทย</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Modal สำหรับแสดงรูปขยาย -->
+<div id="myModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImg">
+    <div id="caption"></div>
+</div>
+
+<!-- เรียกไฟล์ script.js -->
+<script src="script.js"></script>
+
+</body>
+</html>

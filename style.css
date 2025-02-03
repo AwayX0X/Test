@@ -195,10 +195,28 @@ h1 {
 
 @media screen and (max-width: 600px) {
   body {
-    font-size: 14px;
+    font-size: 16px; /* ปรับขนาดฟอนต์ให้ใหญ่ขึ้นเล็กน้อยสำหรับมือถือ */
   }
 
   .container {
-    padding: 10px;
+    padding: 15px; /* ลด padding เพื่อให้พื้นที่ใช้มากขึ้น */
+    max-width: 100%; /* ให้ container กว้างเต็มหน้าจอ */
+  }
+
+  .product {
+    width: 100%; /* ทำให้สินค้าแต่ละชิ้นมีขนาดเต็มความกว้างหน้าจอ */
+  }
+
+  .tab-button {
+    padding: 10px 20px; /* ลดขนาดปุ่มแท็บให้เหมาะสม */
+    font-size: 1rem; /* ปรับขนาดฟอนต์ให้เล็กลง */
+  }
+
+  .contact li {
+    font-size: 1rem; /* ลดขนาดฟอนต์ใน contact ให้เล็กลง */
+  }
+
+  h1 {
+    font-size: 1.5rem; /* ปรับขนาดฟอนต์ของหัวข้อ */
   }
 }

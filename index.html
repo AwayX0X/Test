@@ -19,11 +19,16 @@
     <h1>ร้านจักรยานของเรา</h1>
 
     <!-- หมวดหมู่สินค้า -->
-    <div class="tabs">
-        <button class="tab-button active" onclick="openTab('mountain-bikes')">จักรยานเสือภูเขา</button>
-        <button class="tab-button" onclick="openTab('road-bikes')">จักรยานเสือหมอบ</button>
-        <button class="tab-button" onclick="openTab('electric-bikes')">จักรยานไฟฟ้า</button>
-    </div>
+    <!-- Select Dropdown แทน Tabs -->
+	<div class="select-container">
+		<label for="categorySelect">เลือกหมวดหมู่</label>
+		<select id="categorySelect" onchange="changeCategory()">
+			<option value="mountain-bikes">จักรยานเสือภูเขา</option>
+			<option value="road-bikes">จักรยานเสือหมอบ</option>
+			<option value="electric-bikes">จักรยานไฟฟ้า</option>
+		</select>
+	</div>
+
 
     <!-- แสดงสินค้าภายในแท็บต่าง ๆ -->
     <div id="mountain-bikes" class="tab-content active">

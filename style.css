@@ -212,6 +212,17 @@ h1 {
     font-size: 1rem; /* ปรับขนาดฟอนต์ให้เล็กลง */
   }
 
+  .tabs {
+    display: flex; /* ใช้ flexbox เพื่อจัดระเบียบ */
+    flex-direction: row; /* จัดแท็บเป็นแนวนอน */
+    justify-content: center; /* จัดแท็บให้อยู่กลาง */
+    flex-wrap: wrap; /* ทำให้แท็บสามารถหักมุมได้หากไม่พอพื้นที่ */
+  }
+
+  .tab-button {
+    margin: 5px; /* ลดระยะห่างระหว่างปุ่ม */
+  }
+
   .contact li {
     font-size: 1rem; /* ลดขนาดฟอนต์ใน contact ให้เล็กลง */
   }

@@ -162,15 +162,35 @@ h1 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.7);
+    text-align: center;
 }
 
 .modal-content {
-    margin: auto;
-    display: block;
     width: 80%;
     max-width: 700px;
     border-radius: 8px;
 }
+
+#prev, #next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50%;
+}
+
+#prev { left: 15px; }
+#next { right: 15px; }
+
+#prev:hover, #next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 
 #caption {
     text-align: center;
@@ -195,38 +215,10 @@ h1 {
 
 @media screen and (max-width: 600px) {
   body {
-    font-size: 16px; /* ปรับขนาดฟอนต์ให้ใหญ่ขึ้นเล็กน้อยสำหรับมือถือ */
+    font-size: 14px;
   }
 
   .container {
-    padding: 15px; /* ลด padding เพื่อให้พื้นที่ใช้มากขึ้น */
-    max-width: 100%; /* ให้ container กว้างเต็มหน้าจอ */
-  }
-
-  .products {
-    display: flex; /* ใช้ flexbox เพื่อจัดระเบียบสินค้า */
-    flex-direction: row; /* จัดสินค้าในแนวนอน */
-    flex-wrap: nowrap; /* ทำให้สินค้าอยู่ในแถวเดียวไม่หักมุม */
-    overflow-x: auto; /* ให้สามารถเลื่อนแนวนอนได้เมื่อสินค้าเกินพื้นที่ */
-    gap: 20px; /* เพิ่มระยะห่างระหว่างสินค้า */
-  }
-
-  .product {
-    width: 200px; /* กำหนดความกว้างของสินค้า */
-    flex-shrink: 0; /* ป้องกันไม่ให้สินค้าเล็กลง */
-  }
-
-  .tab-button {
-    padding: 10px 20px; /* ลดขนาดปุ่มแท็บให้เหมาะสม */
-    font-size: 1rem; /* ปรับขนาดฟอนต์ให้เล็กลง */
-  }
-
-  .contact li {
-    font-size: 1rem; /* ลดขนาดฟอนต์ใน contact ให้เล็กลง */
-  }
-
-  h1 {
-    font-size: 1.5rem; /* ปรับขนาดฟอนต์ของหัวข้อ */
+    padding: 10px;
   }
 }
-

@@ -89,38 +89,47 @@ h1 {
     justify-content: center;
 }
 
+/* การตั้งค่าสินค้า */
 .product {
-    background-color: #FFFFFF;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 250px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* เพิ่มเอฟเฟกต์เมื่อ hover */
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ecf0f1;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product:hover {
-    transform: scale(1.05); /* ขยายสินค้าเล็กน้อยเมื่อ hover */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .product img {
     width: 100%;
     height: auto;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.3s ease; /* เพิ่มเอฟเฟกต์เมื่อ hover */
+    border-radius: 10px;
+    transition: transform 0.3s ease;
 }
 
 .product img:hover {
-    transform: scale(1.1); /* ขยายรูปภาพเมื่อ hover */
+    transform: scale(1.05);
 }
 
 .product h4 {
-    margin: 10px 0;
-    font-size: 1.1rem;
-    color: #333;
+    color: #2C3E50;
+    font-size: 18px;
+    margin: 15px 0;
 }
+
+
+
+.price::before {
+    content: "฿";
+}
+
 
 .product .price {
     color: #28a745; /* สีเขียวสดเพื่อให้ราคาเด่นขึ้น */

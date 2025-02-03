@@ -288,3 +288,33 @@ h1 {
         margin: 5px;
     }
 }
+.select-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.select-container label {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: green;
+	right: 1;
+}
+
+
+select {
+    background: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    color: blue;
+    font-size: 1rem;
+    cursor: pointer;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+select:hover, select:focus {
+    background: rgba(255, 255, 255, 0.3);
+}

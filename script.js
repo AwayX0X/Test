@@ -44,18 +44,25 @@ function redirectToHome() {
     }
 }
 
-// ฟังก์ชันแสดงสินค้าตามหมวดหมู่
+// ฟังก์ชันแสดงสินค้าตามหมวดหมู่ และอัปเดตจำนวนสินค้า
 function displayProducts(category) {
     console.log(`กำลังโหลดสินค้าในหมวดหมู่: ${category}`);
 
     const productContainer = document.getElementById(`${category}-products`);
-    if (!productContainer) return console.error(`ไม่พบ container ของ ${category}`);
+    const productCount = document.getElementById("productCount"); // อ้างอิงถึง span ที่แสดงจำนวนสินค้า
 
-    if (!products[category]) {
-        productContainer.innerHTML = "<p>ไม่มีสินค้าในหมวดหมู่นี้</p>";
+    if (!productContainer) return console.error(`❌ ไม่พบ container ของ ${category}`);
+
+    if (!products[category] || products[category].length === 0) {
+        productContainer.innerHTML = "<p>❗ ไม่มีสินค้าในหมวดหมู่นี้</p>";
+        productCount.innerText = `มีสินค้า 0 รายการ`;
         return;
     }
 
+    // อัปเดตจำนวนสินค้า
+    productCount.innerText = `มีสินค้า ${products[category].length} รายการ`;
+
+    // แสดงสินค้า
     productContainer.innerHTML = products[category].map(product => `
         <div class="product" onclick="goToProductPage('${category}', '${product.name}')">
             <img src="${product.images[0]}" alt="${product.alt}" loading="lazy">
@@ -64,6 +71,7 @@ function displayProducts(category) {
         </div>
     `).join('');
 }
+
 
 // ฟังก์ชันเปลี่ยนหมวดหมู่สินค้า
 // ฟังก์ชันเปลี่ยนหมวดหมู่สินค้า

@@ -3,8 +3,8 @@
 /* ตั้งค่าพื้นฐาน */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f4f4f4, #e0e5ec), 
-                url('https://www.transparenttextures.com/patterns/cubes.png');
+    background: linear-gradient(135deg, rgba(244, 244, 244, 0.6), rgba(224, 229, 236, 0.2)), 
+                url('https://i.imgur.com/mvsfUiN.jpeg');
     background-blend-mode: overlay;
     background-size: cover;
     margin: 0;
@@ -80,7 +80,7 @@ h1 {
 /* สไตล์ของ Select Box */
 #categorySelect {
     width: 100%;
-    padding: 10px;
+    padding: 13px;
     font-size: 16px;
     border: none;
     border-radius: 8px;
@@ -182,6 +182,21 @@ h1 {
 	-moz-box-shadow: 0px 0px 6px 2px rgba(84,83,84,1);
 	box-shadow: 0px 0px 6px 2px rgba(84,83,84,1);
 }
+/* สไตล์ของจำนวนสินค้า */
+/* คอนเทนเนอร์ของจำนวนสินค้า */
+/* คอนเทนเนอร์ของจำนวนสินค้า */
+.product-count-container {
+    text-align: center;
+    margin-bottom: 27px; /* เพิ่มระยะห่างจากรายการสินค้า */
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
 
 .product:hover {
     transform: scale(1.05);

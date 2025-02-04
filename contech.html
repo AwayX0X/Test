@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen px-4">
+
+    <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-sm">
+        <h2 class="text-2xl font-bold text-center text-gray-800">📩 ติดต่อเรา</h2>
+
+	<!-- ไอคอนแพลตฟอร์ม -->
+	<div class="flex justify-center space-x-4 my-4">
+		<a href="https://facebook.com/YOUR_PAGE" target="_blank" class="text-blue-600 text-2xl">
+			<i class="fab fa-facebook"></i>
+		</a>
+		<a href="https://twitter.com/YOUR_PAGE" target="_blank" class="text-blue-400 text-2xl">
+			<i class="fab fa-twitter"></i>
+		</a>
+		<a href="https://discord.gg/YOUR_INVITE" target="_blank" class="text-indigo-500 text-2xl">
+			<i class="fab fa-discord"></i>
+		</a>
+		<a href="mailto:your-email@example.com" class="text-red-500 text-2xl">
+			<i class="fas fa-envelope"></i>
+		</a>
+	</div>
+
+
+        <form id="contactForm" class="mt-4 space-y-4">
+            <div>
+                <label class="block text-gray-600 font-medium">ชื่อ</label>
+                <input type="text" id="name" required 
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-gray-600 font-medium">อีเมล</label>
+                <input type="email" id="email" required 
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-gray-600 font-medium">ข้อความ</label>
+                <textarea id="message" rows="4" required 
+                          class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"></textarea>
+            </div>
+
+            <div>
+                <label class="block text-gray-600 font-medium">เลือกยศ</label>
+                <select id="role" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none">
+                    <!-- Role Options ถูกเพิ่มผ่าน JavaScript -->
+                </select>
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition duration-300">
+                ส่งข้อความ
+            </button>
+        </form>
+
+        <p id="status" class="text-center text-sm mt-3"></p>
+    </div>
+
+    <!-- โหลด config.js -->
+    <script src="config.js"></script>
+
+    <script>
+        // โหลด Role ID จาก config.js และสร้างตัวเลือกใน Dropdown
+        const roleSelect = document.getElementById("role");
+        CONFIG.roles.forEach(role => {
+            const option = document.createElement("option");
+            option.value = role.id;
+            option.textContent = role.name;
+            roleSelect.appendChild(option);
+        });
+
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            const roleID = document.getElementById("role").value; // รับ Role ID ที่เลือก
+
+            const data = {
+                content: `<@&${roleID}> 👋 มีข้อความใหม่จากฟอร์มติดต่อ!`, // 🔹 Mention Role
+                username: "📩 Contact Form",
+                avatar_url: CONFIG.botAvatar,
+                embeds: [{
+                    title: "📨 ข้อความใหม่จากฟอร์มติดต่อ",
+                    color: 3447003,
+                    thumbnail: { url: CONFIG.embedThumbnail },
+                    fields: [
+                        { name: "👤 ชื่อ", value: name, inline: true },
+                        { name: "📧 อีเมล", value: email, inline: true },
+                        { name: "💬 ข้อความ", value: message }
+                    ],
+                    footer: { text: "📅 วันที่ส่ง: " + new Date().toLocaleString() }
+                }]
+            };
+
+            fetch(CONFIG.webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById("status").textContent = "✅ ส่งข้อความสำเร็จ!";
+                    document.getElementById("status").classList.add("text-green-600");
+                    document.getElementById("contactForm").reset();
+                } else {
+                    document.getElementById("status").textContent = "❌ ส่งข้อความไม่สำเร็จ!";
+                    document.getElementById("status").classList.add("text-red-600");
+                }
+            })
+            .catch(error => {
+                document.getElementById("status").textContent = "❌ เกิดข้อผิดพลาด!";
+                document.getElementById("status").classList.add("text-red-600");
+                console.error("Error:", error);
+            });
+        });
+    </script>
+
+</body>
+</html>

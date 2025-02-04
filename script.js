@@ -89,6 +89,28 @@ function changeCategory() {
 function goToProductPage(category, productName) {
     window.location.href = `product.html?category=${category}&name=${encodeURIComponent(productName)}`;
 }
+function toggleDropdown() {
+    document.querySelector(".custom-select").classList.toggle("active");
+}
+
+function selectOption(value) {
+    document.querySelector(".selected").innerText = 
+        value === "mountain-bikes" ? "จักรยานเสือภูเขา" :
+        value === "road-bikes" ? "จักรยานเสือหมอบ" :
+        "จักรยานไฟฟ้า";
+
+    document.querySelector(".custom-select").classList.remove("active");
+
+    // โหลดสินค้าตามหมวดหมู่
+    displayProducts(value);
+}
+
+// ปิด dropdown เมื่อคลิกนอกเมนู
+document.addEventListener("click", function(event) {
+    if (!event.target.closest(".custom-select")) {
+        document.querySelector(".custom-select").classList.remove("active");
+    }
+});
 
 // ฟังก์ชันโหลดรายละเอียดสินค้าใน product.html
 function loadProductDetails() {

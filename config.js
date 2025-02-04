@@ -1,4 +1,18 @@
 // config.js
+const CONFIG = {
+    webhookURL: "https://discord.com/api/webhooks/1336359040279642155/6UmXrbgYbpckblVHNHBWQc4BqoO77x92gDlqwfYp1o-c2Km9N_7WvTZpvxa0jFNBmMbx",
+
+    // โลโก้ของบอท & Embed
+    botAvatar: "https://i.imgur.com/hPKDRdO.png",
+    embedThumbnail: "https://i.imgur.com/hPKDRdO.png",
+
+    // Role IDs (เปลี่ยนเป็น Role ID จริงของเซิร์ฟเวอร์)
+    roles: [
+        { id: "1336362254311886970", name: "@ADMIN " }
+        //{ id: "987654321098765432", name: "@Moderator" },
+        //{ id: "543210987654321098", name: "@Member" }
+    ]
+};
 
 const products = {
     "mountain-bikes": [

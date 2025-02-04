@@ -6,7 +6,38 @@
     <title>รายละเอียดสินค้า</title>
     <link rel="stylesheet" href="style.css"> <!-- ไว้สำหรับสไตล์พื้นฐาน -->
     <link rel="stylesheet" href="product.css"> <!-- ใช้เฉพาะ product.html -->
-    <script src="config.js" defer></script>
+	<!-- โหลด Firebase SDK (UMD เวอร์ชัน) -->
+	<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.11.1/firebase-database-compat.js"></script>
+
+	<script>
+		console.log("กำลังโหลด Firebase SDK...");
+
+		// ตั้งค่า Firebase Config (ต้องใช้ค่าจริง)
+		const firebaseConfig = {
+		  apiKey: "AIzaSyB1qLwiHc4XcG3ut1t6sH8ubeiwDzmZFS8",
+		  authDomain: "test-75fe1.firebaseapp.com",
+		  databaseURL: "https://test-75fe1-default-rtdb.firebaseio.com",
+		  projectId: "test-75fe1",
+		  storageBucket: "test-75fe1.firebasestorage.app",
+		  messagingSenderId: "624691834437",
+		  appId: "1:624691834437:web:66b7765942615dcbcf7d2c",
+		  measurementId: "G-84VVY6PJD3"
+		};
+
+		// ตรวจสอบว่า Firebase ถูกโหลดก่อนใช้งาน
+		if (typeof firebase !== "undefined") {
+			firebase.initializeApp(firebaseConfig);
+			console.log("✅ Firebase Initialized!");
+		} else {
+			console.error("❌ Firebase SDK โหลดไม่สำเร็จ!");
+		}
+	</script>
+
+    <!-- โหลด Config.js ก่อน -->
+    <script src="config.js"></script>
+
+    <!-- โหลด Script.js หลังจากนั้น -->
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -41,6 +72,9 @@
         <p id="productTitle"></p>
         <p class="price" id="productPrice"></p>
         <p id="productDescription"></p>
+        <h2 id="productTitle"></h2>
+
+        
 
         <!-- ปุ่มเลือกสี -->
         <div class="color-selection">

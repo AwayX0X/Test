@@ -202,35 +202,52 @@ function toggleLoading(show) {
     }
 }
 
-// ฟังก์ชันอัปเดตจำนวนการเข้าชม
-function updateVisitCount() {
-    let visitCount = localStorage.getItem("visitCount");
-
-    if (visitCount === null) {
-        visitCount = 1; // ถ้ายังไม่มีข้อมูล ให้เริ่มจาก 1
-    } else {
-        visitCount = parseInt(visitCount) + 1; // เพิ่มค่าจำนวนเข้าชม
-    }
-
-    localStorage.setItem("visitCount", visitCount); // บันทึกค่าใหม่ใน localStorage
-    displayVisitCount(); // แสดงผลใหม่ทันที
-}
-
-// ฟังก์ชันแสดงจำนวนเข้าชม
+// ฟังก์ชันแสดงผลจำนวนเข้าชม
 function displayVisitCount() {
-    const visitCounterElement = document.getElementById("visitCounter");
-    if (visitCounterElement) {
-        let visitCount = localStorage.getItem("visitCount") || 0;
-        visitCounterElement.innerText = `จำนวนเข้าชมเว็บไซต์: ${visitCount} ครั้ง`;
-    }
+    const visitRef = firebase.database().ref("visitCount");
+    
+    visitRef.on("value", (snapshot) => {
+        if (snapshot.exists()) {
+            document.getElementById("visitCounter").innerText = `จำนวนเข้าชมเว็บไซต์: ${snapshot.val()} ครั้ง`;
+        } else {
+            document.getElementById("visitCounter").innerText = "ไม่สามารถโหลดจำนวนเข้าชม";
+        }
+    });
 }
 
-// อัปเดตยอดเข้าชมแบบเรียลไทม์ทุก 1 วินาที
-setInterval(displayVisitCount, 1000);
+function updateVisitCount() {
+    console.log("🔄 กำลังอัปเดตจำนวนเข้าชม...");
+
+    if (typeof firebase === "undefined") {
+        console.error("❌ Firebase SDK โหลดไม่สำเร็จ!");
+        return;
+    }
+
+    const visitRef = firebase.database().ref("visitCount");
+
+    visitRef.transaction((currentValue) => {
+        console.log("✅ จำนวนเข้าชมก่อนอัปเดต:", currentValue);
+        return (currentValue || 0) + 1;
+    });
+
+    visitRef.on("value", (snapshot) => {
+        if (snapshot.exists()) {
+            console.log("✅ จำนวนเข้าชมใหม่:", snapshot.val());
+            document.getElementById("visitCounter").innerText = `จำนวนเข้าชมเว็บไซต์: ${snapshot.val()} ครั้ง`;
+        } else {
+            console.warn("⚠️ ไม่มีข้อมูลจำนวนเข้าชมใน Firebase!");
+            document.getElementById("visitCounter").innerText = "ไม่สามารถโหลดจำนวนเข้าชม";
+        }
+    });
+}
+
+
+
 
 // โหลดเมื่อเข้าเว็บ
 window.onload = () => {
     updateVisitCount();
+    displayVisitCount();
     clearCache();
     redirectToHome();
     toggleLoading(true);

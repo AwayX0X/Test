@@ -1,7 +1,12 @@
+
+
 /* ตั้งค่าพื้นฐาน */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(135deg, #f4f4f4, #e0e5ec), 
+                url('https://www.transparenttextures.com/patterns/cubes.png');
+    background-blend-mode: overlay;
+    background-size: cover;
     margin: 0;
     padding: 10px;
     text-align: center;
@@ -238,4 +243,26 @@ footer ul li::before {
         width: 100%;
         max-width: 150px;
     }
+}
+/* สไตล์ของ Loading Screen */
+#loading-screen {
+    position: fixed;  /* ล็อคตำแหน่งให้เต็มจอ */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* จัดให้อยู่ตรงกลาง */
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.9); /* พื้นหลังขาวโปร่งแสง */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    z-index: 9999; /* ให้อยู่ด้านหน้าสุด */
+}
+
+/* ป้องกันไม่ให้แสดงตลอดเวลา */
+.hidden {
+    display: none !important;
 }

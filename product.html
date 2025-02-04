@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดสินค้า</title>
+    <link rel="stylesheet" href="style.css"> <!-- ไว้สำหรับสไตล์พื้นฐาน -->
+    <link rel="stylesheet" href="product.css"> <!-- ใช้เฉพาะ product.html -->
+    <script src="config.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- Loading Screen -->
+<div id="loading-screen">
+    <div class="loader"></div>
+    <p>กำลังโหลดสินค้า...</p>
+</div>
+
+<div class="product-container">
+    <!-- ปุ่มกลับไปหน้าแรก -->
+    <button class="back-btn" onclick="goBack()">&#8592; กลับ</button>
+
+    <!-- ชื่อสินค้า -->
+    
+    <!-- ส่วนแสดงรูปสินค้า -->
+    <div class="product-display">
+        <button class="nav-btn left" onclick="changeColorByButton(-1)">&#10094;</button>
+        <div class="image-container">
+            <img id="productImage" src="" alt="รูปสินค้า">
+            <p id="imageDescription" class="image-description"></p>
+        </div>
+        <button class="nav-btn right" onclick="changeColorByButton(1)">&#10095;</button>
+    </div>
+
+
+
+
+    <!-- รายละเอียดสินค้า -->
+    <div class="product-info">
+        <p id="productTitle"></p>
+        <p class="price" id="productPrice"></p>
+        <p id="productDescription"></p>
+
+        <!-- ปุ่มเลือกสี -->
+        <div class="color-selection">
+            <label><strong>เลือกสี:</strong></label>
+            <div id="colorOptions"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

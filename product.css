@@ -1,0 +1,245 @@
+/* ตั้งค่าพื้นฐาน */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #e0e5ec;
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* กล่องหลัก */
+.container {
+    background: #e0e5ec;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 10px 10px 20px #bebebe, -10px -10px 20px #ffffff;
+    max-width: 600px;
+    width: 90%;
+    text-align: center;
+}
+
+/* ปุ่ม */
+button {
+    background: #e0e5ec;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:active {
+    box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+}
+
+/* การ์ดสินค้า */
+.product {
+    background: #e0e5ec;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 8px 8px 16px #bebebe, -8px -8px 16px #ffffff;
+    transition: 0.3s;
+}
+
+.product:hover {
+    transform: scale(1.05);
+}
+
+/* แสดงรูปสินค้า */
+/* แสดงรูปสินค้า */
+.product img {
+    width: 100%;
+    max-width: 300px;  /* ปรับขนาดให้ไม่ใหญ่เกิน */
+    height: auto; /* คงอัตราส่วนภาพ */
+    border-radius: 12px;
+    object-fit: contain;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+}
+
+/* แสดงรูปสินค้าใน product.html */
+.product-display img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 12px;
+    object-fit: contain;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .product img,
+    .product-display img {
+        max-width: 100%; /* ให้เต็มขอบเขตของ container */
+    }
+}
+
+
+/* รายละเอียดสินค้า */
+.product-info {
+    background: #e0e5ec;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+}
+
+/* ปุ่มย้อนกลับ (Back Button) */
+.back-btn {
+    background: #dc3545; /* สีแดงสด */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), 
+                -4px -4px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* เมื่อโฟกัสหรือเม้าส์ชี้ที่ปุ่ม */
+.back-btn:hover {
+    background: #b02a37; /* สีแดงเข้ม */
+    transform: scale(1.1);
+    box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.3), 
+                -6px -6px 12px rgba(255, 255, 255, 0.4);
+}
+
+/* เมื่อกดปุ่ม */
+.back-btn:active {
+    transform: scale(1.05);
+    box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.2), 
+                inset -4px -4px 10px rgba(255, 255, 255, 0.3);
+}
+
+/* คอนเทนเนอร์ของรูปภาพ */
+.product-display {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+/* ปุ่มเปลี่ยนสี (Next/Prev) */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;  /* ลดขนาดปุ่ม */
+    border-radius: 50%;
+    font-size: 18px; /* ลดขนาดไอคอน */
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), 
+                -3px -3px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* ปุ่มซ้าย */
+.nav-btn.left {
+    left: 5px; /* ลดระยะห่างจากขอบ */
+}
+
+/* ปุ่มขวา */
+.nav-btn.right {
+    right: 5px; /* ลดระยะห่างจากขอบ */
+}
+
+/* เมื่อโฟกัสหรือเม้าส์ชี้ที่ปุ่ม */
+.nav-btn:hover {
+    background: #0056b3;
+    transform: translateY(-50%) scale(1.1); /* ลดขนาดการขยาย */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3), 
+                -5px -5px 10px rgba(255, 255, 255, 0.4);
+}
+
+/* เมื่อกดปุ่ม */
+.nav-btn:active {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: inset 3px 3px 8px rgba(0, 0, 0, 0.2), 
+                inset -3px -3px 8px rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive: ปรับตำแหน่งปุ่มสำหรับมือถือ */
+@media screen and (max-width: 600px) {
+    .nav-btn {
+        padding: 8px; /* ลดขนาดปุ่มสำหรับมือถือ */
+        font-size: 16px;
+    }
+    
+    .nav-btn.left {
+        left: 2px; /* ลดระยะห่างให้ชิดขอบ */
+    }
+
+    .nav-btn.right {
+        right: 2px; /* ลดระยะห่างให้ชิดขอบ */
+    }
+}
+
+
+/* Responsive: ปรับขนาดปุ่มสำหรับมือถือ */
+@media screen and (max-width: 600px) {
+    .back-btn {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
+
+    .nav-btn {
+        font-size: 18px;
+        padding: 10px;
+    }
+}
+
+
+
+/* ปุ่มเลือกสี */
+.color-box {
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    box-shadow: 5px 5px 10px #bebebe, -5px -5px 10px #ffffff;
+    transition: 0.3s;
+}
+
+.color-box:hover {
+    transform: scale(1.2);
+}
+
+.color-box.active {
+    border: 3px solid black;
+    box-shadow: inset 5px 5px 10px #bebebe, inset -5px -5px 10px #ffffff;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .container {
+        max-width: 95%;
+    }
+
+    .product img {
+        width: 100%;
+    }
+}
+
+
+
+/* สไตล์ของคำอธิบายภาพ */
+.image-description {
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+    margin-top: 8px;
+    font-style: italic;
+}

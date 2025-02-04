@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ร้านจักรยาน</title>
     <link rel="stylesheet" href="style.css">
-    <script src="config.js"></script> <!-- โหลดข้อมูลสินค้า -->
+    <script src="config.js" defer></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
 
@@ -15,56 +16,58 @@
     <p>กำลังโหลดเว็บไซต์...</p>
 </div>
 
-<div class="container">
+<header>
     <h1>ร้านจักรยานของเรา</h1>
+</header>
 
-    <!-- หมวดหมู่สินค้า -->
-    <!-- Select Dropdown แทน Tabs -->
-	<div class="select-container">
-		<label for="categorySelect">เลือกหมวดหมู่</label>
-		<select id="categorySelect" onchange="changeCategory()">
-			<option value="mountain-bikes">จักรยานเสือภูเขา</option>
-			<option value="road-bikes">จักรยานเสือหมอบ</option>
-			<option value="electric-bikes">จักรยานไฟฟ้า</option>
-		</select>
-	</div>
+<!-- หมวดหมู่สินค้า -->
+<div class="select-container">
+    <label for="categorySelect">เลือกหมวดหมู่:</label>
+    <select id="categorySelect" onchange="changeCategory()">
+        <option value="mountain-bikes">จักรยานเสือภูเขา</option>
+        <option value="road-bikes">จักรยานเสือหมอบ</option>
+        <option value="electric-bikes">จักรยานไฟฟ้า</option>
+    </select>
+</div>
 
-
-    <!-- แสดงสินค้าภายในแท็บต่าง ๆ -->
+<!-- แสดงสินค้าภายในแท็บต่าง ๆ -->
+<div id="products-container">
     <div id="mountain-bikes" class="tab-content active">
         <div class="products" id="mountain-bikes-products"></div>
     </div>
-
     <div id="road-bikes" class="tab-content">
         <div class="products" id="road-bikes-products"></div>
     </div>
-
     <div id="electric-bikes" class="tab-content">
         <div class="products" id="electric-bikes-products"></div>
     </div>
-
-    <!-- ช่องทางการติดต่อ -->
-    <div class="contact">
-        <h2>ช่องทางการติดต่อ</h2>
-        <ul>
-            <li><strong>โทรศัพท์:</strong> 012-345-6789</li>
-            <li><strong>อีเมล:</strong> example@email.com</li>
-            <li><strong>ที่อยู่:</strong> 123 ถนนจักรยาน, กรุงเทพฯ, ประเทศไทย</li>
-        </ul>
-    </div>
 </div>
+
+<!-- ช่องทางการติดต่อ -->
+<footer>
+    <h2>ข้อมูลติดต่อ</h2>
+    <ul>
+        <li><strong>โทรศัพท์:</strong> 012-345-6789</li>
+        <li><strong>อีเมล:</strong> example@email.com</li>
+        <li><strong>ที่อยู่:</strong> กรุงเทพฯ, ประเทศไทย</li>
+    </ul>
+    <p id="visitCounter">จำนวนเข้าชมเว็บไซต์: กำลังโหลด...</p>
+</footer>
+
 
 <!-- Modal สำหรับแสดงรูปขยาย -->
 <div id="myModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
-    <button id="prev" onclick="prevImage()">&#10094;</button>
+    <div class="modal-header">
+        <h2 id="modalTitle"></h2>
+        <p id="modalPrice"></p>
+        <p id="modalDescription"></p>
+    </div>
+    <button id="prev" onclick="changeImage(-1)">&#10094;</button>
     <img class="modal-content" id="modalImg">
-    <button id="next" onclick="nextImage()">&#10095;</button>
+    <button id="next" onclick="changeImage(1)">&#10095;</button>
     <div id="caption"></div>
 </div>
-
-<!-- โหลดไฟล์ JavaScript -->
-<script src="script.js"></script>
 
 </body>
 </html>

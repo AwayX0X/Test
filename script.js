@@ -1,100 +1,250 @@
 // script.js
 
-let currentIndex = 0; // ตำแหน่งของรูปที่แสดงอยู่
-let currentImages = []; // รายการรูปของสินค้าที่เลือก
+let currentIndex = 0, currentImages = [], currentDescriptions = [];
+let currentCategory = "", currentProductName = "";
+let currentColor = ""; // เก็บค่าสีปัจจุบัน
+let preloadedData = {}; // เก็บข้อมูลสินค้าที่โหลดไว้ล่วงหน้า
 
-// ฟังก์ชันแสดงสินค้าจากหมวดหมู่
+// ฟังก์ชันเคลียร์แคช
+function clearCache() {
+    if ('caches' in window) {
+        caches.keys().then(names => {
+            names.forEach(name => caches.delete(name));
+        });
+    }
+}
+
+// ฟังก์ชันโหลดข้อมูลล่วงหน้า
+function preloadData() {
+    preloadedData = products; // โหลดข้อมูลสินค้าเก็บไว้ในตัวแปร
+}
+
+// ฟังก์ชันโหลดภาพล่วงหน้า
+function preloadImages() {
+    Object.values(products).forEach(category => {
+        category.forEach(product => {
+            product.images.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+            Object.values(product.colorImages || {}).forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        });
+    });
+}
+
+// ฟังก์ชันเปลี่ยนเส้นทางไป `index.html` ถ้าผู้ใช้เข้าเว็บผิดหน้า
+function redirectToHome() {
+    const allowedPages = ["index.html", "product.html", ""];
+    const currentPage = window.location.pathname.split("/").pop();
+    if (!allowedPages.includes(currentPage)) {
+        window.location.href = "index.html";
+    }
+}
+
+// ฟังก์ชันแสดงสินค้าตามหมวดหมู่
 function displayProducts(category) {
+    console.log(`กำลังโหลดสินค้าในหมวดหมู่: ${category}`);
+
     const productContainer = document.getElementById(`${category}-products`);
-    productContainer.innerHTML = ''; // เคลียร์เนื้อหาก่อน
+    if (!productContainer) return console.error(`ไม่พบ container ของ ${category}`);
 
-    const categoryProducts = products[category];
+    if (!products[category]) {
+        productContainer.innerHTML = "<p>ไม่มีสินค้าในหมวดหมู่นี้</p>";
+        return;
+    }
 
-    categoryProducts.forEach(product => {
-        const productElement = document.createElement('div');
-        productElement.classList.add('product');
-        productElement.innerHTML = `
-            <img src="${product.images[0]}" alt="${product.alt}" onclick="openModal('${category}', '${product.name}')">
+    productContainer.innerHTML = products[category].map(product => `
+        <div class="product" onclick="goToProductPage('${category}', '${product.name}')">
+            <img src="${product.images[0]}" alt="${product.alt}" loading="lazy">
             <h4>${product.name}</h4>
             <p class="price">${product.price} บาท</p>
-        `;
-        productContainer.appendChild(productElement);
-    });
+        </div>
+    `).join('');
 }
-// ฟังก์ชันเปลี่ยนหมวดหมู่เมื่อเลือกจาก Select
+
+// ฟังก์ชันเปลี่ยนหมวดหมู่สินค้า
+// ฟังก์ชันเปลี่ยนหมวดหมู่สินค้า
 function changeCategory() {
     let selectedCategory = document.getElementById("categorySelect").value;
-    
-    // ซ่อนทุกหมวดหมู่
+
+    // ซ่อนแท็บทั้งหมดก่อน แล้วแสดงเฉพาะที่เลือก
     document.querySelectorAll(".tab-content").forEach(tab => {
-        tab.classList.remove("active");
+        tab.style.display = "none";
+    });
+    document.getElementById(selectedCategory).style.display = "block";
+
+    // ล้างสินค้าก่อนโหลดใหม่
+    const productContainer = document.getElementById(`${selectedCategory}-products`);
+    if (productContainer) {
+        productContainer.innerHTML = "";
+        displayProducts(selectedCategory); // โหลดสินค้าใหม่
+    }
+}
+
+
+// ฟังก์ชันไปที่หน้าสินค้าเฉพาะตัว
+function goToProductPage(category, productName) {
+    window.location.href = `product.html?category=${category}&name=${encodeURIComponent(productName)}`;
+}
+
+// ฟังก์ชันโหลดรายละเอียดสินค้าใน product.html
+function loadProductDetails() {
+    const params = new URLSearchParams(window.location.search);
+    currentCategory = params.get("category");
+    currentProductName = params.get("name");
+
+    console.log(`Loading product: ${currentProductName} from category: ${currentCategory}`);
+
+    if (!currentCategory || !currentProductName || !preloadedData[currentCategory]) {
+        console.error("Category หรือ Product ไม่ถูกต้อง");
+        return;
+    }
+
+    const product = preloadedData[currentCategory].find(p => p.name === currentProductName);
+    if (!product) {
+        console.error("ไม่พบสินค้าที่ต้องการ");
+        return;
+    }
+
+    document.getElementById("productTitle").innerText = product.name;
+    document.getElementById("productPrice").innerText = `ราคา: ${product.price} บาท`;
+    document.getElementById("productDescription").innerText = product.description || "ไม่มีรายละเอียดสินค้า";
+
+    console.log("Images:", product.images);
+    if (product.images && product.images.length > 0) {
+        document.getElementById("productImage").src = product.images[0];
+    } else {
+        console.error("ไม่มีภาพสินค้า");
+    }
+
+    // โหลดปุ่มเลือกสี
+    const colorOptions = document.getElementById("colorOptions");
+    colorOptions.innerHTML = "";
+    const label = document.createElement("label");
+    label.innerHTML = "<strong>เลือกสี:</strong>";
+    colorOptions.appendChild(label);
+
+    product.colors.forEach(color => {
+        const button = document.createElement("button");
+        button.classList.add("color-box");
+        button.style.backgroundColor = colorToHex(color);
+        button.onclick = () => changeColor(color);
+        colorOptions.appendChild(button);
     });
 
-    // แสดงหมวดหมู่ที่เลือก
-    document.getElementById(selectedCategory).classList.add("active");
-
-    // โหลดสินค้าตามหมวดหมู่ที่เลือก
-    displayProducts(selectedCategory);
-}
-// ฟังก์ชันเปิด Modal และโหลดรูปของสินค้านั้น ๆ
-function openModal(category, productName) {
-    const product = products[category].find(p => p.name === productName); // ค้นหาสินค้าที่ถูกเลือก
-    if (!product) return; // ป้องกันข้อผิดพลาดหากหาไม่เจอ
-    
-    currentImages = product.images; // โหลดรายการรูปของสินค้านั้น
-    currentIndex = 0; // รีเซ็ต index
-
-    updateModalImage(); // แสดงรูปแรก
-    document.getElementById("myModal").style.display = "block";
+    changeColor(product.colors[0]); // ตั้งค่าสีเริ่มต้น
 }
 
-// ฟังก์ชันอัปเดตรูปใน Modal
-function updateModalImage() {
-    let modalImg = document.getElementById("modalImg");
-    let captionText = document.getElementById("caption");
-    
-    if (currentImages.length > 0) {
-        modalImg.src = currentImages[currentIndex];
-        captionText.innerHTML = `รูปที่ ${currentIndex + 1} / ${currentImages.length}`;
+// ฟังก์ชันเปลี่ยนสีสินค้า โดยใช้ปุ่ม Next/Prev
+function changeColorByButton(step) {
+    const product = preloadedData[currentCategory].find(p => p.name === currentProductName);
+    if (!product) return;
+
+    const colorKeys = Object.keys(product.colorImages);
+    let currentColorIndex = colorKeys.indexOf(currentColor);
+
+    // หาสีใหม่ตามทิศทางที่กด
+    let newColorIndex = (currentColorIndex + step + colorKeys.length) % colorKeys.length;
+    let newColor = colorKeys[newColorIndex];
+
+    console.log(`เปลี่ยนสีจาก ${currentColor} เป็น ${newColor}`);
+    changeColor(newColor);
+}
+
+function changeColor(selectedColor) {
+    const product = preloadedData[currentCategory].find(p => p.name === currentProductName);
+    if (product && product.colorImages[selectedColor]) {
+        document.getElementById("productImage").src = product.colorImages[selectedColor];
+
+        // อัปเดตคำอธิบายรูปภาพ
+        const colorIndex = product.colors.indexOf(selectedColor);
+        document.getElementById("imageDescription").innerText =
+            product.imageDescriptions[colorIndex] || "ไม่มีคำอธิบายสำหรับสีนี้";
+    }
+
+    // ลบ active class จากทุกปุ่ม
+    document.querySelectorAll(".color-box").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    // เพิ่ม active class ให้สีที่ถูกเลือก
+    const selectedBox = [...document.querySelectorAll(".color-box")].find(
+        box => box.style.backgroundColor === colorToHex(selectedColor)
+    );
+    if (selectedBox) selectedBox.classList.add("active");
+
+    currentColor = selectedColor;
+}
+
+
+// ฟังก์ชันแปลงชื่อสีเป็นโค้ด HEX
+function colorToHex(color) {
+    const colorMap = {
+        "แดง": "#FF0000", "น้ำเงิน": "#0000FF", "ดำ": "#000000",
+        "ขาว": "#FFFFFF", "เขียว": "#008000", "เทา": "#808080"
+    };
+    return colorMap[color] || color;
+}
+
+// ฟังก์ชันย้อนกลับไปยังหน้าหลัก
+function goBack() {
+    window.location.href = "index.html";
+}
+
+// ฟังก์ชันแสดงและซ่อน Loading Screen
+function toggleLoading(show) {
+    const loadingScreen = document.getElementById("loading-screen");
+    if (loadingScreen) {
+        loadingScreen.style.display = show ? "flex" : "none";
     }
 }
 
-// ฟังก์ชันเลื่อนรูปภาพ
-function nextImage() {
-    if (currentIndex < currentImages.length - 1) {
-        currentIndex++;
-        updateModalImage();
+// ฟังก์ชันอัปเดตจำนวนการเข้าชม
+function updateVisitCount() {
+    let visitCount = localStorage.getItem("visitCount");
+
+    if (visitCount === null) {
+        visitCount = 1; // ถ้ายังไม่มีข้อมูล ให้เริ่มจาก 1
+    } else {
+        visitCount = parseInt(visitCount) + 1; // เพิ่มค่าจำนวนเข้าชม
+    }
+
+    localStorage.setItem("visitCount", visitCount); // บันทึกค่าใหม่ใน localStorage
+    displayVisitCount(); // แสดงผลใหม่ทันที
+}
+
+// ฟังก์ชันแสดงจำนวนเข้าชม
+function displayVisitCount() {
+    const visitCounterElement = document.getElementById("visitCounter");
+    if (visitCounterElement) {
+        let visitCount = localStorage.getItem("visitCount") || 0;
+        visitCounterElement.innerText = `จำนวนเข้าชมเว็บไซต์: ${visitCount} ครั้ง`;
     }
 }
 
-function prevImage() {
-    if (currentIndex > 0) {
-        currentIndex--;
-        updateModalImage();
-    }
-}
+// อัปเดตยอดเข้าชมแบบเรียลไทม์ทุก 1 วินาที
+setInterval(displayVisitCount, 1000);
 
-// ฟังก์ชันปิด Modal
-function closeModal() {
-    document.getElementById("myModal").style.display = "none";
-}
-
-// ฟังก์ชันแสดง Loading Screen
-function showLoadingScreen() {
-    document.getElementById("loading-screen").style.display = "flex";
-}
-
-// ฟังก์ชันซ่อน Loading Screen
-function hideLoadingScreen() {
-    document.getElementById("loading-screen").style.display = "none";
-}
-
-// โหลดสินค้าหมวดหมู่แรกหลังจากโหลดเสร็จ
+// โหลดเมื่อเข้าเว็บ
 window.onload = () => {
-    showLoadingScreen(); // แสดงหน้าจอโหลด
+    updateVisitCount();
+    clearCache();
+    redirectToHome();
+    toggleLoading(true);
+
+    preloadData();
+    preloadImages();
 
     setTimeout(() => {
-        hideLoadingScreen(); // ซ่อนหน้าจอโหลด
-        displayProducts('mountain-bikes'); // โหลดสินค้าหมวดแรก
-    }, 1500); // ตั้งเวลาโหลด 1.5 วินาที
+        toggleLoading(false);
+
+        if (document.getElementById("productTitle")) {
+            loadProductDetails();
+        } else {
+            displayProducts("mountain-bikes");
+        }
+    }, 1500);
 };
